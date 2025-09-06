@@ -24,10 +24,12 @@ source myenv/bin/activate
  pip3 install -r requirements.txt 
  ```
 > Please, wait patiently, do NOT CTRL+C before the installation is finished.
-6. You are ready to create a [Hello World basic agent](adk/00-basic/) using ADK.
+6. You are ready to create a [Hello World basic agent](adk/00-basic/) or any of the agents in the next section using ADK.
 
 
 ## ADK framework
+
+> IMPORTANT: Before executing any of the agents, you must fill your credentials (GOOGLE_API_KEY) in an `.env` file.
 
 The following samples provide ADK functionalities:
 
@@ -37,28 +39,27 @@ The following samples provide ADK functionalities:
 4. Artifacts
 5. Short-term and long-term memory. IMPORTANT: for lab 12 to work you need a valid Agent Engine id.
 
-Steps tu run an agent. Xxample for [00-basic](adk/00-basic/]):
+ADK includes tools like a command-line interface (CLI) and a Developer UI for running agents. Use `adk web` to run the UI or `adk run` for individual agents. Example for [00-basic](adk/00-basic/]):
 ```sh
-adk run 00-basic
-adk web 
- ```
+"How were you built ?" | adk run 00-basic
+```
 
 
 ## A2A protocol
 
-1. Install A2A samples repo with:
+1. Install A2A samples repo:
 ```sh
 git clone https://github.com/a2aproject/a2a-samples.git
 ```
-2. Install uv with `pip install uv`. Important: must be within your venv.
-3. Launch `helloworld` sample. Note this sample does NOT provide any [mesop UI](https://mesop-dev.github.io/mesop/), only sends Message events. If you try to open a browser, you will get `GET / HTTP/1.1 405 Method Not Allowed`
+2. Install `uv` with `pip install uv`. Important: must be within your venv.
+3. Launch `helloworld` sample. Note this sample does NOT provide any [mesop UI](https://mesop-dev.github.io/mesop/), only sends Message events. If you try to open a browser within Firebase Studio, you will get `GET / HTTP/1.1 405 Method Not Allowed`. Use another environment.
 ```sh
 uv run .
 # In another terminal
 uv run test_client
 ```
 4. Launch the demo UI. Make sure you use the right dependencies as highlighted in Known errors below.
-5. 
+
 
 
 ## MCP protocol
@@ -83,7 +84,7 @@ error: Failed to spawn: `.`
 ```
 Solution: `uv run main.py`
 
-### 2. Error with packages when running CrewAI agent
+### 2. Error with packages when running CrewAI agent in A2A
 
 ```sh
 $ uv run .
@@ -91,7 +92,6 @@ ERROR:__main__:An error occurred during server startup: Packages `starlette` and
 ```
 
  Solution: `uv add a2a-sdk[http-server]` (do not use pip install)
-
 
 ### 3. A2A Demo UI stuck with no response (demo/ui)
 
@@ -141,7 +141,7 @@ dev = ["ruff>=0.11.2"]
 ```
 
 
-### 4. Firebase Studio and Cloud Shell. 403 response when launching mesop
+### 4. Firebase Studio and Cloud Shell. 403 response when launching mesop (demo/ui)
 ```sh
 $ uv run main.py
 INFO:     127.0.0.1:34816 - "POST /__ui__ HTTP/1.1" 403 Forbidden

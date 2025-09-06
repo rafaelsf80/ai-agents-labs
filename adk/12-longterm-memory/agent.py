@@ -1,6 +1,3 @@
-# https://cloud.google.com/blog/topics/developers-practitioners/remember-this-agent-state-and-memory-with-adk
-# https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/python-tutor
-
 import os
 from google.adk.agents import LlmAgent
 from google.adk.agents.callback_context import CallbackContext
