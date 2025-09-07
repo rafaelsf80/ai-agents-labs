@@ -1,10 +1,10 @@
 # 10 - Image generation and artifacts
+# Requires pip3 install pillow matplotlib
 
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning) 
 
-GEMINI_2_FLASH = "gemini-2.0-flash"
-IMAGE_MODEL = 'imagen-3.0-fast-generate-001'
+IMAGE_MODEL = 'imagen-4.0-generate-001'
 
 import io
 from google.genai import Client
@@ -19,20 +19,20 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-MODEL_GOOGLE = "gemini-2.0-flash"
+MODEL_GOOGLE = "gemini-2.5-flash"
 
 # Only Vertex AI supports image generation for now.
-client = Client(vertexai=True)
+client = Client()
 
 def generate_image(prompt: str, tool_context: 'ToolContext'):
   """Generates an image based on the prompt."""
   response = client.models.generate_images(
       model=IMAGE_MODEL,
       prompt=prompt,
-      config={
-          'number_of_images': 1,
-          'safety_filter_level': 'BLOCK_ONLY_HIGH', # BLOCK_NONE
-      },
+      config=types.GenerateImagesConfig(
+        number_of_images= 4,
+        personGeneration="allow_adult" # default
+    )
   )
   if not response.generated_images:
     return {'status': 'failed'}
@@ -40,7 +40,7 @@ def generate_image(prompt: str, tool_context: 'ToolContext'):
   
   # Save the image in the context, not in disk
   tool_context.save_artifact(
-       '/Users/rafaelsanchez/git/genai-agents/adk/10-artifacts/image.png',
+       './image.png',
        types.Part.from_bytes(data=image_bytes, mime_type='image/png'),
    )
 
@@ -54,7 +54,7 @@ def generate_image(prompt: str, tool_context: 'ToolContext'):
   return {'status': 'ok', 'filename': 'image.png'}
 
 root_agent = Agent(
-    model=GEMINI_2_FLASH,
+    model=MODEL_GOOGLE,
     name='root_agent',
     description="""An agent that generates images and answer questions about the images.""",
     instruction="""You are an agent whose job is to generate or edit an image based on the user's prompt.

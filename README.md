@@ -24,12 +24,12 @@ source myenv/bin/activate
  pip3 install -r requirements.txt 
  ```
 > Please, wait patiently, do NOT CTRL+C before the installation is finished.
-6. You are ready to create a [Hello World basic agent](adk/00-basic/) or any of the agents in the next section using ADK.
+6. You are ready to create a [Hello World basic agent](./adk/00-basic/) or any of the agents in the next section using ADK.
 
 
 ## ADK framework
 
-> IMPORTANT: Before executing any of the agents, you must fill your credentials (GOOGLE_API_KEY) in an `.env` file.
+> IMPORTANT: Before executing any of the agents, you must fill your credentials (`GOOGLE_API_KEY`) in an `.env` file.
 
 The following samples provide ADK functionalities:
 
@@ -37,7 +37,9 @@ The following samples provide ADK functionalities:
 2. Sub-agents
 3. Callbacks (HITL)
 4. Artifacts
-5. Short-term and long-term memory. IMPORTANT: for lab 12 to work you need a valid Agent Engine id.
+5. Short-term and long-term memory. 
+
+> IMPORTANT: Lab 12 (long-term memory) will not work unless you provide  a valid Agent Engine id.
 
 ADK includes tools like a command-line interface (CLI) and a Developer UI for running agents. Use `adk web` to run the UI or `adk run` for individual agents. Example for [00-basic](adk/00-basic/]):
 ```sh
@@ -51,15 +53,37 @@ ADK includes tools like a command-line interface (CLI) and a Developer UI for ru
 ```sh
 git clone https://github.com/a2aproject/a2a-samples.git
 ```
-2. Install `uv` with `pip install uv`. Important: must be within your venv.
-3. Launch `helloworld` sample. Note this sample does NOT provide any [mesop UI](https://mesop-dev.github.io/mesop/), only sends Message events. If you try to open a browser within Firebase Studio, you will get `GET / HTTP/1.1 405 Method Not Allowed`. Use another environment.
+2. Install `uv` with `pip3 install uv`. Important: must be within your venv.
+3. Launch `helloworld` sample. Note this sample does NOT provide any [mesop UI](https://mesop-dev.github.io/mesop/), only sends Message events. 
 ```sh
 uv run .
-# In another terminal
+# In another terminal launch the client
 uv run test_client
 ```
-4. Launch the demo UI. Make sure you use the right dependencies as highlighted in Known errors below.
 
+4. A2A protocol includes a useful command-line interface to send Tasks and Messages. Launch a server (for example: adk_expense_reimbursement client) and a client. Make sure you add a `.env` file in both directories with the correct keys:
+```sh
+cd a2a-samples/samples/python/agents/adk_expense_reimbursement
+uv run .
+# In another terminal launch the client
+cd a2a-samples/samples/python/hosts/cli
+uv run . --agent http://localhost:10002
+```
+
+5. Finally, you can run a three-agent demo under `demo/ui` using a `mesop` interface. Make sure you use the modified `crewai` agent provided, and that you add a `.env` file in both directories with the correct keys.
+```sh
+cd a2a-samples/samples/python/agents/adk_expense_reimbursement
+uv run .
+# In another terminal launch the second server
+cd ../crewai
+uv run .
+# In another terminal launch the third server
+cd ../langgraph
+uv run .
+# In another terminal launch the client
+cd a2a-samples/demo/ui
+uv run main.py
+```
 
 
 ## MCP protocol
@@ -73,7 +97,7 @@ pip3 install mcp[cli] mcp --upgrade
 python3 client.py  server.py
 ```
 
-## Known errors
+## FAQ
 
 ### 1. Permission errors when running CrewAI agent in A2A
 
@@ -147,4 +171,4 @@ $ uv run main.py
 INFO:     127.0.0.1:34816 - "POST /__ui__ HTTP/1.1" 403 Forbidden
 ```
 
-Solution: No solution so far.
+Solution: No solution so far for Firebase Studio. Use your local environment.
