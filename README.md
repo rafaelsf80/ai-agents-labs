@@ -72,6 +72,7 @@ uv run . --agent http://localhost:10002
 
 5. Finally, you can run a three-agent demo under `demo/ui` using a `mesop` interface. Make sure you use the modified `crewai` agent provided, and that you add a `.env` file in both directories with the correct keys.
 ```sh
+# Launch server 1
 cd a2a-samples/samples/python/agents/adk_expense_reimbursement
 uv run .
 # In another terminal launch the second server
@@ -96,6 +97,35 @@ You can make a query like `"weather for SF, CA"`:
 pip3 install mcp[cli] mcp --upgrade
 python3 client.py  server.py
 ```
+
+## Gemini CLI
+
+Install in Firebase Studio with `npx https://github.com/google-gemini/gemini-cli`
+Note `.gemini/settings.jon` file.
+
+Shell commands:
+```sh
+gemini -p "your prompt here" # Direct prompt execution
+gemini -i "your prompt" # Open gemini in interactive mode with that prompt
+gemini -y  # Auto-confirm all prompts (YOLO mode)
+gemini -m model # Use a spedific model
+```
+
+Gemini CLI commands:
+```sh
+/tools # Lists available tools and their descriptions.
+/memory show # Displays the full, combined context currently being used by the AI.
+/memory add # Add content to the memory
+@path    # Injects the content of the specified file or directory into the prompt.
+!command # Executes the specified command directly in your system's shell.
+```
+
+Example 1: _"Build a simple Node.js app. It starts a web server and returns "Hello World". It listens on port 8080 or $PORT. Make sure to add a Dockerfile."_
+
+Example 2: _"Write an executable Python script with self-contained dependencies that draws an SVG of a star"_
+
+Example 3: make [this codelab](https://codelabs.developers.google.com/gemini-cli-hands-on)
+
 
 ## FAQ
 
