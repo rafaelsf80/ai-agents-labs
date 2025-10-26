@@ -1,7 +1,7 @@
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning) 
 
-GEMINI_2_FLASH = "gemini-2.0-flash"
+GEMINI_2_FLASH = "gemini-2.5-flash"
 
 import random
 from google.adk.agents import Agent
@@ -84,16 +84,16 @@ session = app.create_session(user_id="u_123")
 for event in app.stream_query(
     user_id="u_123",
     session_id=session.id,
-    message="whats the weather in new york",
+    message="roll a 5-side die and check if it's prime",
 ):
   print(event)
 
-# Deploy to Vertex AI Agent Engine
+# Supported regions in Vertex AI Agent Engine
 # https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview#supported-regions
 
 vertexai.init(
     project="argolis-rafaelsanchez-ml-dev",
-    location="us-central1",
+    location="europe-southwest1",
     staging_bucket="gs://argolis-rafaelsanchez-ml-dev-agent-engine",
     )
 
@@ -104,9 +104,3 @@ remote_agent = agent_engines.create(
     description = "Agente con juego de tirar un dado con dos tools",
     requirements=["google-cloud-aiplatform[agent_engines,adk]"]
 )
-
-# run_prompt("roll a 2 sided die")
-
-# #run_prompt('roll a 9 sided die and check if its prime')
-
-# #run_prompt("What were the previous rolls?")

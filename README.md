@@ -43,7 +43,7 @@ The following samples provide ADK functionalities:
 
 ADK includes tools like a command-line interface (CLI) and a Developer UI for running agents. Use `adk web` to run the UI or `adk run` for individual agents. Example for [00-basic](adk/00-basic/]):
 ```sh
-"How were you built ?" | adk run 00-basic
+echo "How were you built ?" | adk run 00-basic
 ```
 
 
@@ -116,9 +116,11 @@ Gemini CLI commands:
 /tools # Lists available tools and their descriptions.
 /memory show # Displays the full, combined context currently being used by the AI.
 /memory add # Add content to the memory
+/extensions
 @path    # Injects the content of the specified file or directory into the prompt.
 !command # Executes the specified command directly in your system's shell.
 ```
+
 
 Example 1: _"Build a simple Node.js app. It starts a web server and returns "Hello World". It listens on port 8080 or $PORT. Make sure to add a Dockerfile."_
 

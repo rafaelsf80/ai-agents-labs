@@ -3,62 +3,44 @@ from typing import Dict, Any
 
 quiz = [
     (
-        """Which statement about Python dictionaries is TRUE?
-        A) Dictionary keys must be strings
-        B) Dictionaries maintain the order of insertion (Python 3.7+)
-        C) A dictionary can have duplicate keys
-        D) Dictionary values must be immutable""",
-        "B",
+        """Which of this class is not-persistent?
+
+        * A) google.adk.memory.VertexAiMemoryBankService;
+        * B) google.adk.sessions.VertexAiSessionService;
+        * C) google.adk.sessions.DatabaseSessionService;
+        * D) google.adk.memory.InMemoryMemoryService;
+        """,
+        "D",
     ),
     (
-        """What will be the output of the following code?
+        """Which of these protocols are supported and compatible with ADK ?
 
-        my_dict = {"a": 1, "b": 2, "c": 3}
-        my_dict["b"] = 5
-        my_dict["d"] = 4
-        print(len(my_dict))
-
-        A) 3
-        B) 5
-        C) 4
-        D) Error""",
-        "C",
+        * A) A2A (Agent-to-Agent protocol)
+        * B) MCP (Model Context protocol)
+        * C) AP2 (Agent Payments protocol)
+        * D) All of them
+        """,
+        "D",
     ),
     (
         """Let's say that:
 
-        scores = {"Alice": 90, "Bob": 85}
+        * retrieved_session = await session_service.get_session(...); 
+        * retrieved_session.state["user_info"] = my_user_info
 
-        Which of the following code snippets will NOT raise an error?
-        A) print(scores.get("Charlie"))
-        B) print(scores["Charlie"])
-        C) print(scores.pop("Charlie"))
-        D) del scores["Charlie"]""",
+        Which of the following is incorrect ?
+        * A) The previous code is recommended.
+        * B) The previous code is not recommended, you must modify the state within a tool.
+        * C) The previous code is not recommended, you must modify the state within a callback.
+        * D) It's recommended to modify the state using CallbackContext.state.
+        """,
         "A",
-    ),
-    (
-        """What will be the output of the following code?
-
-        def modify_dict(d):
-            d["new_key"] = 100
-            d = {"completely": "different"}
-
-        my_dict = {"original": 42}
-        modify_dict(my_dict)
-        print(my_dict)
-
-        A) {"completely": "different"}
-        B) {"completely": "different", "new_key": 100}
-        C) {"original": 42}
-        D) {"original": 42, "new_key": 100}""",
-        "D",
-    ),
+    )
 ]
-
 
 def get_quiz_questions() -> Dict[str, Any]:
     """
-    Get all quiz questions for the Python dictionaries quiz.
+    Get all quiz questions for the ADK quiz.
 
     Returns:
         Dictionary containing:
@@ -74,7 +56,7 @@ def get_quiz_questions() -> Dict[str, Any]:
 
 def start_quiz(tool_context: ToolContext) -> Dict[str, Any]:
     """
-    Start the Python dictionaries quiz. Resets all progress and begins from question 1.
+    Start the ADK quiz. Resets all progress and begins from question 1.
 
     Returns:
         Dictionary containing:

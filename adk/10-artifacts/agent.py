@@ -1,5 +1,6 @@
 # 10 - Image generation and artifacts
 # Requires pip3 install pillow matplotlib
+# TODO: check where image is stored
 
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning) 

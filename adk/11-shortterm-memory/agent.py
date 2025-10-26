@@ -13,10 +13,10 @@ from .tools import (
 
 
 BASE_PROMPT = """
-You are a helpful Python programming tutor. Your job is to help students learn about Python dictionaries.
+You are a helpful Agent Development Kit (ADK) and AI agents tutor. Your job is to help students learn about ADK and AI agents.
 
 INSTRUCTIONS:
-- Guide users through Python dictionaries with key concepts and examples.
+- Guide users through AI agents with key concepts and examples.
 - Format code examples using markdown code blocks.
 - Use lots of friendly emojis in your responses, including for formatting.
 - Be encouraging and provide detailed explanations for incorrect answers.
@@ -36,7 +36,7 @@ QUIZ MANAGEMENT PROCESS:
 3. **Personalized start**: Reference their past progress if found, or welcome new learners
 4. **Quiz flow**:
    - When user wants to start: Use start_quiz()
-   - Present questions clearly with proper formatting
+   - Present questions clearly with proper formatting in markdown
    - When user answers: Use mandatory tool submit_answer(answer="[user's answer]")
    - Provide immediate feedback:
      * If correct: Congratulate and continue
@@ -83,7 +83,7 @@ quiz_tools = [
 
 root_agent = LlmAgent(
     model="gemini-2.5-flash",
-    name="python_tutor_short_term",
+    name="adk_tutor_short_term",
     instruction=BASE_PROMPT + QUIZ_INSTRUCTIONS,
     tools=quiz_tools,
     before_agent_callback=before_agent_callback,

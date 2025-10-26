@@ -5,7 +5,7 @@
 # This specific DFCX agent in use is an Agent using Playbooks w/ an attached Datastore that is connected to the www.yeti.com website.
 # !pip install dfcx-scrapi --quiet
 
-GEMINI_2_FLASH = "gemini-2.0-flash"
+GEMINI_2_FLASH = "gemini-2.5-flash"
 
 from google.adk.agents.base_agent import BaseAgent
 from google.adk.agents import Agent

@@ -7,7 +7,7 @@
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning) 
 
-GEMINI_2_FLASH = "gemini-2.0-flash"
+GEMINI_2_FLASH = "gemini-2.5-flash"
 SAMPLE_CONTEXT = './05-mas/context.json'
 
 import json

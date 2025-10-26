@@ -4,7 +4,7 @@
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning) 
 
-GEMINI_2_FLASH = "gemini-2.0-flash"
+GEMINI_2_FLASH = "gemini-2.5-flash"
 SAMPLE_CONTEXT = './04-workflow_agent_loop/context.json'
 
 import json

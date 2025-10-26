@@ -1,17 +1,16 @@
 # 02 - Conversational Agent - Single Agent, Multi-Tool Use
-# Single agent structure with Multiple Tools avaialble.   
-# Each interaction is a directly to the root agent, which handles multiple capabilities by itself
+# Note context.json is not used and is inserted as a session when calling the agent
 
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning) 
 
-GEMINI_2_FLASH = "gemini-2.0-flash"
-SAMPLE_CONTEXT = './context.json'
+GEMINI_2_FLASH = "gemini-2.5-flash"
+#SAMPLE_CONTEXT = './context.json'
 
 import json
 from datetime import datetime
 from google.adk.agents import Agent
-from google.adk.agents.callback_context import CallbackContext
+#from google.adk.agents.callback_context import CallbackContext
 
 
 mock_flight_info = [
@@ -116,16 +115,16 @@ def book_hotel(hotel_id: str, check_in_date: str, check_out_date: str) -> str:
 
 
 
-def load_context(callback_context: CallbackContext):
+# def load_context(callback_context: CallbackContext):
     
-    data = {}
-    with open(SAMPLE_CONTEXT, "r") as file:
-        data = json.load(file)
-        print(f"\nLoading Initial State: {data}\n")
+#     data = {}
+#     with open(SAMPLE_CONTEXT, "r") as file:
+#         data = json.load(file)
+#         print(f"\nLoading Initial State: {data}\n")
 
-    context = data["state"]
-    callback_context.state["user_info"] = context["user_info"]
-    callback_context.state["time"] = eval(context["time"]) # security risks: https://www.codiga.io/blog/python-eval/
+#     context = data["state"]
+#     callback_context.state["user_info"] = context["user_info"]
+#     callback_context.state["time"] = eval(context["time"]) # security risks: https://www.codiga.io/blog/python-eval/
 
 root_agent = Agent(
         model=GEMINI_2_FLASH,
@@ -150,8 +149,7 @@ root_agent = Agent(
             update_ticket_to_new_flight,
             search_hotels,
             book_hotel
-            ],
-        before_agent_callback=load_context
+            ]
         )
 
 
@@ -161,7 +159,7 @@ from vertexai.preview.reasoning_engines import AdkApp
 
 # Test locally 
 
-app = AdkApp(agent=root_agent)
+app = AdkApp(agent=root_agent, enable_tracing=True)  # Cloud Trace enabled
 
 for event in app.stream_query(
    user_id="rafa02",  # Required
@@ -170,21 +168,17 @@ for event in app.stream_query(
    print(event)
 
 
-# Deploy to Vertex AI Agent Engine
+# Supported regions Vertex AI Agent Engine
 # https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview#supported-regions
 vertexai.init(
     project="argolis-rafaelsanchez-ml-dev",
-    location="us-central1",
+    location="europe-southwest1",
     staging_bucket="gs://argolis-rafaelsanchez-ml-dev-agent-engine",
     )
 
 remote_agent = agent_engines.create(
     agent_engine=app,
-    display_name = "03-multi-tool-context-agent",
-    description = "Agent example with multi tool",
+    display_name = "02-multi-tool-context-agent",
+    description = "Agent example with multi tool with Cloud tracing enabled",
     requirements=["google-cloud-aiplatform[agent_engines,adk]"],
 )
-
-
-
-# projects/989788194604/locations/europe-southwest1/reasoningEngines/4021749651613941760
