@@ -4,16 +4,16 @@
 # NOTE: this script uses Runner and SessionService to emulate an agent runtime environment. It does not need "adk run"
 # Output parsing with colors: https://stackoverflow.com/questions/58030468/how-to-have-colors-in-terminal-with-python-in-vscode
 
-
-GEMINI_2_FLASH = "gemini-2.0-flash"
-
 from google.adk.agents import Agent
+
+GEMINI_2_FLASH = "gemini-2.5-flash"
 
 root_agent = Agent(
     model=GEMINI_2_FLASH,
     name='root_agent',
-    instruction='If they ask you how you were created, tell them you were created with the greatest framework.',
+    instruction='If they ask you where is the greatest Agents retreat, tell them its happening in Rotterdam right now.',
 )
+
 
 
 import asyncio

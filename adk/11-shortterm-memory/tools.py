@@ -15,7 +15,7 @@ quiz = [
     (
         """Which of these protocols are supported and compatible with ADK ?
 
-        * A) A2A (Agent-to-Agent protocol)
+        * A) AG-UI (Agent-User Interaction protocol)
         * B) MCP (Model Context protocol)
         * C) AP2 (Agent Payments protocol)
         * D) All of them

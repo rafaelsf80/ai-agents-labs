@@ -41,10 +41,22 @@ The following samples provide ADK functionalities:
 
 > IMPORTANT: Lab 12 (long-term memory) will not work unless you provide  a valid Agent Engine id.
 
-ADK includes tools like a command-line interface (CLI) and a Developer UI for running agents. Use `adk web` to run the UI or `adk run` for individual agents. Example for [00-basic](adk/00-basic/]):
+ADK includes tools like a command-line interface (CLI) and a Developer UI for running agents. Use `adk web` to run the UI or `adk run` for individual agents. Example for [00-basic](adk/00-basic):
 ```sh
 echo "How were you built ?" | adk run 00-basic
 ```
+
+
+## Finantial advisor agent
+
+Follow the [README.md](https://github.com/google/adk-samples/blob/main/python/agents/financial-advisor/README.md) to make queries to the agent.
+
+Make sure your .env file looks like this: 
+```sh
+USE_VERTEX_AI=False
+GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
+```
+While this agent can run locally with a `GOOGLE_API_KEY`, please note you can not deploy this to Agent Engine using the Gemini API key (you must use Vertex AI). 
 
 
 ## A2A protocol
@@ -98,9 +110,11 @@ pip3 install mcp[cli] mcp --upgrade
 python3 client.py  server.py
 ```
 
+
 ## Gemini CLI
 
-Install in Firebase Studio with `npx https://github.com/google-gemini/gemini-cli`
+Install in Firebase Studio with `npx https://github.com/google-gemini/gemini-cli`.
+
 Note `.gemini/settings.jon` file.
 
 Shell commands:
@@ -121,12 +135,25 @@ Gemini CLI commands:
 !command # Executes the specified command directly in your system's shell.
 ```
 
+Demo examples:
 
-Example 1: _"Build a simple Node.js app. It starts a web server and returns "Hello World". It listens on port 8080 or $PORT. Make sure to add a Dockerfile."_
+* **1. Node.js app generation**: in a new directory, query in Spanish: _"Escribe una aplicacion en node.js que sea un servidor web y devuelva "hola, bbva". Usa el puerto 8080, y que tenga un dockerfile"_. You can then launch the app with `$ node index.js`.
 
-Example 2: _"Write an executable Python script with self-contained dependencies that draws an SVG of a star"_
+* **2. Code analysis**: in a new directory, clone this same repo and run this query (Spanish): _"Analiza este repositorio y busca fallos de código"_.
 
-Example 3: make [this codelab](https://codelabs.developers.google.com/gemini-cli-hands-on)
+* **3. Web fetch**: query in Spanish: _"Busca los 10 titulares de noticias noticias más importantes de las ultimas semanas sobre BBVA y guardalas en un archivo bbva.txt"_
+
+* **4. Equivalent of `$ find . --name hello --print`**: query in Spanish: _"Busca la palabra `hello` en el directorio actual"_. Also you can use `@`: _"@a2a/samples busca `hello` en este directorio"_.
+
+You can also run [this codelab](https://codelabs.developers.google.com/gemini-cli-hands-on).
+
+
+## Agent Engine
+
+Samples from the official Google Cloud repo:
+
+* [Debugging and Optimizing Agents: A Guide to Tracing in Agent Engine](https://github.com/GoogleCloudPlatform/generative-ai/blob/main/gemini/agent-engine/tracing_agents_in_agent_engine.ipynb)
+* [Building a Conversational Search Agent with Agent Engine and RAG on Vertex AI Search](https://github.com/GoogleCloudPlatform/generative-ai/blob/main/gemini/agent-engine/tutorial_vertex_ai_search_rag_agent.ipynb)
 
 
 ## FAQ
