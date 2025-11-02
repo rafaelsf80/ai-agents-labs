@@ -80,13 +80,13 @@ root_agent = Agent(
 # Test locally
 
 app = AdkApp(agent=root_agent)
-session = app.create_session(user_id="u_123")
-for event in app.stream_query(
-    user_id="u_123",
-    session_id=session.id,
-    message="roll a 5-side die and check if it's prime",
-):
-  print(event)
+# session = app.create_session(user_id="u_123")
+# for event in app.stream_query(
+#     user_id="u_123",
+#     session_id=session.id,
+#     message="roll a 5-side die and check if it's prime",
+# ):
+#   print(event)
 
 # Supported regions in Vertex AI Agent Engine
 # https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview#supported-regions

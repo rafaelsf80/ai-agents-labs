@@ -49,7 +49,7 @@ echo "How were you built ?" | adk run 00-basic
 
 ## Finantial advisor agent
 
-Follow the [README.md](https://github.com/google/adk-samples/blob/main/python/agents/financial-advisor/README.md) to make queries to the agent.
+This agent is available in the [`adk-samples`](https://github.com/google/adk-samples) Google Cloud public repository. Follow the [README.md](https://github.com/google/adk-samples/blob/main/python/agents/financial-advisor/README.md) to make queries to the agent.
 
 Make sure your .env file looks like this: 
 ```sh
@@ -57,6 +57,21 @@ USE_VERTEX_AI=False
 GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
 ```
 While this agent can run locally with a `GOOGLE_API_KEY`, please note you can not deploy this to Agent Engine using the Gemini API key (you must use Vertex AI). 
+
+
+## Data Science agent
+
+This agent is available in the [`adk-samples`](https://github.com/google/adk-samples) Google Cloud public repository. Follow the [README.md](https://github.com/google/adk-samples/blob/main/python/agents/data-science/README.md) to make queries to the agent.
+
+Make sure your .env file is inside `data_science` directory (not `data-science`) 
+
+
+Dependencies:
+```sh
+pip3 install pandas immutabledict regex sqlglot db-dtypes absl-py
+```
+
+> **Note**: `pipx` vs `pip`: `pipx` is the new manager to install python apps in isolated environments. Ideal for tools like black, pipenv or poetry (`pipx install poetry`) that you want to use it globally without worrying on dependencies. So, while `pipx` is for tools you se from CLI, `pip` is to install packages(numpy, requests, django...)
 
 
 ## A2A protocol
@@ -115,7 +130,7 @@ python3 client.py  server.py
 
 Install in Firebase Studio with `npx https://github.com/google-gemini/gemini-cli`.
 
-Note `.gemini/settings.jon` file.
+Note `.gemini/settings.jon` file that contains key configuration.
 
 Shell commands:
 ```sh
@@ -135,15 +150,30 @@ Gemini CLI commands:
 !command # Executes the specified command directly in your system's shell.
 ```
 
-Demo examples:
+Code examples:
 
-* **1. Node.js app generation**: in a new directory, query in Spanish: _"Escribe una aplicacion en node.js que sea un servidor web y devuelva "hola, bbva". Usa el puerto 8080, y que tenga un dockerfile"_. You can then launch the app with `$ node index.js`.
+* **1. Node.js app generation**: in a new directory, query in Spanish: _"Escribe una aplicacion en node.js que sea un servidor web y devuelva "hola, bbva". Debe usar el puerto 8080, y que tenga un dockerfile"_. You can then launch the app with `$ node index.js`.
 
 * **2. Code analysis**: in a new directory, clone this same repo and run this query (Spanish): _"Analiza este repositorio y busca fallos de código"_.
 
+Built-in tools examples (`/tools`):
+
 * **3. Web fetch**: query in Spanish: _"Busca los 10 titulares de noticias noticias más importantes de las ultimas semanas sobre BBVA y guardalas en un archivo bbva.txt"_
 
-* **4. Equivalent of `$ find . --name hello --print`**: query in Spanish: _"Busca la palabra `hello` en el directorio actual"_. Also you can use `@`: _"@a2a/samples busca `hello` en este directorio"_.
+* **4. Web fetch**: query in Spanish: _"Descarga las release notes solo de la ultima versión de Google Agent Development Kit de su feed rss y muestra las principales features en una lista bien formateada."_
+
+Shell examples:
+
+* **5. Equivalent of `$ find . --name hello --print`**: query in Spanish: _"Busca la palabra `hello` en el directorio actual"_. Also you can use `@`: _"@a2a/samples busca `hello` en este directorio"_.
+
+Github MCP server examples (make sure you add your Github PAT on `.gemini/settings.json`):
+
+* Who am I on github ? 
+* Describe the `google/adk-samples` repository to me ?
+* Clone that repo on my local machine.
+* Describe `@adk-samples/python/agents/financial-advisor/` (can also be a directory `@<directory-name>/`)
+* What are the different components of this repository?
+* I have made necessary changes. Can you push the changes to Github and use the Github MCP Server tools to do that ?
 
 You can also run [this codelab](https://codelabs.developers.google.com/gemini-cli-hands-on).
 
@@ -154,6 +184,33 @@ Samples from the official Google Cloud repo:
 
 * [Debugging and Optimizing Agents: A Guide to Tracing in Agent Engine](https://github.com/GoogleCloudPlatform/generative-ai/blob/main/gemini/agent-engine/tracing_agents_in_agent_engine.ipynb)
 * [Building a Conversational Search Agent with Agent Engine and RAG on Vertex AI Search](https://github.com/GoogleCloudPlatform/generative-ai/blob/main/gemini/agent-engine/tutorial_vertex_ai_search_rag_agent.ipynb)
+
+Use an agent in another session:
+```py
+from vertexai import agent_engines
+remote_agent = agent_engines.get("projects/989788194604/locations/us-central1/reasoningEngines/175860287793004544")
+```
+
+List agents per region:
+```py
+from vertexai import agent_engines
+vertexai.init(location="us-centrla1")
+print(list(agent_engines.list())) # only returns from one region
+```
+
+
+## `langchain-google-vertexai` package examples
+
+Some examples of the [`langchain-google-vertexai` package](https://pypi.org/project/langchain-google-vertexai/), including the following classes:
+
+* `langchain_google_vertexai.ChatVertexAI`
+* `langchain_google_vertexai.VertexAIEmbeddings`
+* `langchain_google_vertexai.VertexAIModelGarden`
+* `langchain_google_vertexai.VertexAI`
+
+```sh
+pip install langchain-google-vertexai
+```
 
 
 ## FAQ
@@ -231,3 +288,27 @@ INFO:     127.0.0.1:34816 - "POST /__ui__ HTTP/1.1" 403 Forbidden
 ```
 
 Solution: No solution so far for Firebase Studio. Use your local environment.
+
+
+### 5. Agent Engine SDK error: 
+
+* Agent Engine SDK error: failed to generate schema for stream_query: `stream_query` is not fully defined; you should define `ContentDict`, then call `stream_query.model_rebuild()`
+Solution: https://b.corp.google.com/issues/416716891
+
+
+### 6. ModuleNotFoundError: No module named 'data_science'
+
+* Traceback (most recent call last):
+  File "/Users/rafaelsanchez/git/genai-agents/data-science-agent/deployment/deploy.py", line 22, in <module>
+    from data_science.agent import root_agent
+ModuleNotFoundError: No module named 'data_science'
+Solution
+import sys
+sys.path.append("./data_science-0.1.0-py3-none-any.whl")
+
+
+### 7.
+
+* https://b.corp.google.com/issues/412215081#comment16
+
+pip3 install --upgrade --force-reinstall google-adk 'google-cloud-aiplatform[agent_engines]==1.90.0
