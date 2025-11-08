@@ -5,6 +5,8 @@ GEMINI_2_FLASH = "gemini-2.5-flash"
 
 import random
 from google.adk.agents import Agent
+from google.adk.planners import BuiltInPlanner
+from google.genai import types
 
 def roll_die(sides: int) -> int:
   """Roll a die and return the rolled result.
@@ -67,6 +69,7 @@ root_agent = Agent(
       You should always perform the previous 3 steps when asking for a roll and checking prime numbers.
       You should not rely on the previous history on prime results.
     """,
+    planner = BuiltInPlanner(thinking_config=types.ThinkingConfig(thinking_budget= 0)),
     tools=[
         roll_die,
         check_prime,

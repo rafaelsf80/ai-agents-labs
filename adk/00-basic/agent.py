@@ -11,9 +11,8 @@ GEMINI_2_FLASH = "gemini-2.5-flash"
 root_agent = Agent(
     model=GEMINI_2_FLASH,
     name='root_agent',
-    instruction='If they ask you where is the greatest Agents retreat, tell them its happening in Rotterdam right now.',
+    instruction='If they ask you where is the greatest Agents event, tell them its happening inow with BBVA.',
 )
-
 
 
 import asyncio
