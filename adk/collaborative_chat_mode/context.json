@@ -1,0 +1,10 @@
+{
+  "state": {
+    "customer_profile": {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "loyalty_level": "Gold"
+  },
+    "current_datetime": "datetime.now().isoformat()"
+  }
+}

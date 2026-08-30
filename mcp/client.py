@@ -18,7 +18,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-MODEL_GOOGLE = "gemini-2.0-flash"
+MODEL_GOOGLE = "gemini-3.5-flash"
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 google_client = genai.Client(api_key=GOOGLE_API_KEY)
 
@@ -68,7 +68,7 @@ class MCPClient:
                     "description": tool.description,
                     "parameters": {
                         k: v
-                        for k, v in tool.inputSchema.items()
+                        for k, v in tool.input_schema.items()                        
                         if k not in ["additionalProperties", "$schema"]
                     },
                 }
