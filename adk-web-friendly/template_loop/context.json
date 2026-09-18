@@ -1,0 +1,7 @@
+{
+  "state": {
+    "topic": "A client-side code-based agent system that reside in a python SDK is better than a server-side configuration-based system that runs in a black box.",
+    "num_debate_rounds": 3,
+    "current_round_number": 1
+  }
+}

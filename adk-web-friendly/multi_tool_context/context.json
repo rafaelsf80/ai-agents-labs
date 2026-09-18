@@ -1,0 +1,10 @@
+{
+  "state": {
+    "user_info": {
+        "name": "Rafa Sanchez",
+        "email": "contacto@rafaelsanchez.dev",
+        "loyalty_level": "Gold"
+    },
+    "time": "datetime.now().isoformat()"
+  }
+}

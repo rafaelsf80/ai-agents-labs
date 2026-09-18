@@ -1,0 +1,6 @@
+{
+  "state": {
+    "game": "The game will generate a random number between 1 and 100. The user will guess the number. If the user guesses the number, the game will end. If the user guesses a number that is too high, the game will tell the user that the number is too high. If the user guesses a number that is too low, the game will tell the user that the number is too low. The game will continue until the user guesses the number",
+    "time": "datetime.now().isoformat()"
+  }
+}

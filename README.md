@@ -1,30 +1,23 @@
 # AI Agents labs
 
-## Firebase Studio
+## Cloud shell
 
-We will use [Firebase Studio](https://firebase.blog/posts/2025/04/introducing-firebase-studio/), but these labs can run in any other environment, like local VS Code, [Cloud Workstations](https://cloud.google.com/workstations) or similar.
+We will use [Cloud Shell](https://docs.cloud.google.com/shell/docs/launching-cloud-shell), but these labs can run in any other environment, like local VS Code, [Cloud Workstations](https://cloud.google.com/workstations) or similar.
 
-Firebase Studio provides [100 GiB total disk space for Nix packages and /tmp and 10 GiB for your /home directory](https://firebase.google.com/docs/studio/troubleshooting). It also provides templates to work with certain environments, like [this one for A2A](https://github.com/a2aproject/a2a-samples/pull/312).
+Cloud Shell provides [5 GiB total disk space](https://docs.cloud.google.com/shell/docs/using-cloud-shell).If you do not need persistent storage, use Cloud Shell in ephemeral mode. In ephemeral mode, you can get started with Cloud Shell faster because there is less set up and there is no disk attachment or archive. However, this means that all the files you create during your ephemeral mode session are deleted with the VM when the session ends.
 
-You can check the status dashboard of Firebase products [here](https://status.firebase.google.com/).
+Cloud Shell supports upload/download from local, so you can work work with files either through repositories or through uploading/downloading them from your local computer.
 
-Note Firebase Studio does not support upload from local, so the easiest way to work with files is through repositories. However, although you can not upload, you can download files by unzipping them using the contextual menu over a file or directory.
+You can check the status dashboard of Google Cloud products [here](https://status.cloud.google.com/), including Cloud Shell.
 
 Steps to create the workspace for the labs in this repo:
-1. Go to Firebase Studio at https://firebase.studio
-2. Create a Flask app, and accept all installation suggestions. We are not going to use Flask, we are only interested in the basic package install.
-3. Remove all the Flask app, including `*.dev` and `main.py`, since we will not need them.
-4. Open a terminal and create virtual environment:
+1. Go to Cloud Shell and clone this repo
+2. Open a terminal and create virtual environment:
 ```sh
 python -m venv myenv
 source myenv/bin/activate
 ```
-5. Replace `requirements.txt` with `google-adk` and `python-dotenv`, and install them with:
-```sh
- pip3 install -r requirements.txt 
- ```
-> Please, wait patiently, do NOT CTRL+C before the installation is finished.
-6. You are ready to create a [Hello World basic agent](./adk/00-basic/) or any of the agents in the next section using ADK.
+3. You are ready to create a [Hello World basic agent](./adk-web-friendly/basic/) or any of the agents in the next section using ADK.
 
 
 ## ADK framework
@@ -33,23 +26,23 @@ source myenv/bin/activate
 
 The following samples provide ADK functionalities:
 
-1. Tools
+1. Tools 
 2. Sub-agents
 3. Callbacks (HITL)
 4. Artifacts
 5. Short-term and long-term memory. 
 
-> IMPORTANT: Lab 12 (long-term memory) will not work unless you provide  a valid Agent Engine id.
+> IMPORTANT: Long-term memory lab will not work unless you provide  a valid Agent Runtime id.
 
-ADK includes tools like a command-line interface (CLI) and a Developer UI for running agents. Use `adk web` to run the UI or `adk run` for individual agents. Example for [00-basic](adk/00-basic):
+ADK includes tools like a command-line interface (CLI) and a Developer UI for running agents. Use `adk web` to run the UI or `adk run` for individual agents. Example for [basic](./adk-web-friendly/basic):
 ```sh
-echo "How were you built ?" | adk run 00-basic
+echo "How were you built ?" | adk run basic
 ```
 
 
 ## Finantial advisor agent
 
-This agent is available in the [`adk-samples`](https://github.com/google/adk-samples) Google Cloud public repository. Follow the [README.md](https://github.com/google/adk-samples/blob/main/python/agents/financial-advisor/README.md) to make queries to the agent.
+This agent is available in a separate repo: [`adk-samples`](https://github.com/google/adk-samples) Google Cloud public repository. Follow the [README.md](https://github.com/google/adk-samples/blob/main/python/agents/financial-advisor/README.md) to make queries to the agent.
 
 Make sure your .env file looks like this: 
 ```sh
@@ -126,28 +119,18 @@ python3 client.py  server.py
 ```
 
 
-## Gemini CLI
+## Antigravity CLI
 
-Install in Firebase Studio with `npx https://github.com/google-gemini/gemini-cli`.
+Installed by default in Cloud Shell
 
 Note `.gemini/settings.jon` file that contains key configuration.
 
 Shell commands:
 ```sh
-gemini -p "your prompt here" # Direct prompt execution
-gemini -i "your prompt" # Open gemini in interactive mode with that prompt
-gemini -y  # Auto-confirm all prompts (YOLO mode)
-gemini -m model # Use a spedific model
-```
-
-Gemini CLI commands:
-```sh
-/tools # Lists available tools and their descriptions.
-/memory show # Displays the full, combined context currently being used by the AI.
-/memory add # Add content to the memory
-/extensions
-@path    # Injects the content of the specified file or directory into the prompt.
-!command # Executes the specified command directly in your system's shell.
+agy -p "your prompt here" # Direct prompt execution
+agy -i "your prompt" # Open interactive mode with that prompt
+agy --dangerously-skip-permissions  # Auto-confirm all prompts (YOLO mode)
+agy --model gemini-3.5-flash # Use a spedific model
 ```
 
 Code examples:
